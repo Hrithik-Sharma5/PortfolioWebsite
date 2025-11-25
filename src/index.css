@@ -1,0 +1,110 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Glossy dark portfolio theme */
+    --background: 0 0% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 0 0% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 8%;
+
+    --secondary: 0 0% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 0 0% 20%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 18%;
+    --input: 0 0% 18%;
+    --ring: 0 0% 40%;
+
+    --radius: 1rem;
+
+    /* Glossy effects */
+    --glass-bg: 0 0% 10% / 0.4;
+    --glass-border: 0 0% 100% / 0.1;
+    --glow: 0 0% 100% / 0.03;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 8%), hsl(0 0% 15%));
+    --gradient-glossy: linear-gradient(180deg, hsl(0 0% 100% / 0.05), hsl(0 0% 100% / 0.01));
+    --gradient-shine: linear-gradient(110deg, transparent 25%, hsl(0 0% 100% / 0.1) 50%, transparent 75%);
+    
+    /* Shadows */
+    --shadow-glow: 0 0 60px hsl(0 0% 100% / 0.05);
+    --shadow-deep: 0 20px 50px hsl(0 0% 0% / 0.6);
+    
+    /* Transitions */
+    --transition-smooth: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-spring: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground overflow-x-hidden;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  /* Glossy glass effect utility */
+  .glass {
+    background: linear-gradient(135deg, hsl(var(--glass-bg)), hsl(0 0% 8% / 0.3));
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid hsl(var(--glass-border));
+    box-shadow: var(--shadow-glow);
+  }
+  
+  /* Smooth scrolling */
+  html.lenis {
+    height: auto;
+  }
+  
+  .lenis.lenis-smooth {
+    scroll-behavior: auto;
+  }
+  
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+  
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+  
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
