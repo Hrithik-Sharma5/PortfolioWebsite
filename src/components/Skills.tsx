@@ -27,7 +27,7 @@ export const Skills = () => {
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="glass px-3 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full border border-border backdrop-blur-xl text-center hover:scale-105 transition-transform duration-300"
+              className="glass px-3 sm:px-6 md:px-8 py-3 sm:py-4 rounded-full border border-border backdrop-blur-xl text-center hover:scale-105 transition-transform duration-300 flex items-center justify-center"
             >
               <span className="text-foreground font-medium text-sm sm:text-base md:text-lg break-words">
                 {skill}
