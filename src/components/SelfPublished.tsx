@@ -25,7 +25,7 @@ const selfPublishedGames = [
         title: 'Chill Guy Survival (To be released)',
         description: 'A 2D survival game where you use a variety of weapons to fight enemy waves. Each weapon generates at different speeds, requiring strategic planning across multiple maps.',
         platforms: [
-            { name: 'website' as const, url: 'https://www.crazygames.com/preview/fd2ce37d-7d97-4fcd-8611-1fc62db472a0?sdk_debug=true&gameBuildId=c66972bb-2e35-491a-bddf-67b7aacb5973&qaTool=true&disableSubmitQA=true&role=developer' }
+            { name: 'website' as const, url: 'https://www.crazygames.com/preview/ea00d315-5bb0-4ee6-80ee-b13c96f8d1aa?sdk_debug=true&gameBuildId=c00a68c8-7cfc-4a16-ae14-15a6a1366cb4&qaTool=true&disableSubmitQA=true&role=developer' }
         ],
         image: './PortfolioVisualIcons/ChillGuy.jpg',
     },
