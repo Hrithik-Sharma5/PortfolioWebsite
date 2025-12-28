@@ -21,10 +21,7 @@ const Index = () => {
       <About />
       <Contact />
 
-      {/* Footer */}
-      <footer className="py-8 text-center text-muted-foreground border-t border-border">
-        <p>&copy; 2024 Hrithik Sharma. All rights reserved.</p>
-      </footer>
+
     </div>
   );
 };
