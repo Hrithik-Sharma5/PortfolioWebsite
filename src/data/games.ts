@@ -105,17 +105,6 @@ export const featuredProjects: Game[] = [
     genre: 'Idle Tycoon',
     listed: true,
   },
-  {
-    title: 'Tower Strike',
-    description:
-      'An idle gas station tycoon game where you manage a gas station, fill customer’s tanks, upgrade pumps, hire workers, and expand your station.',
-    platforms: [
-      { name: 'playstore', url: 'https://play.google.com/store/apps/details?id=com.goosebump.towerstrike' },
-    ],
-    image: './PortfolioVisualIcons/TowerStrike.webp',
-    genre: 'Tower Defense',
-    listed: false,
-  },
 ];
 
 /** Games designed, built and published independently. */

@@ -24,12 +24,7 @@ export const SelfPublished = () => {
     return (
         <section id="self-published" className="min-h-screen py-20 px-6 relative">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-bold mb-6 text-center">Self Published Games</h2>
-                <p className="text-muted-foreground text-center text-lg mb-20 max-w-3xl mx-auto leading-relaxed">
-                    Games I design, build and publish independently — taking each one from
-                    prototype through store release, including Steam publishing and
-                    web-playable builds.
-                </p>
+                <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Self Published Games</h2>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {selfPublishedGames.map((game, index) => (

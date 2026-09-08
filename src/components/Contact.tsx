@@ -49,9 +49,7 @@ export const Contact = () => {
         <div ref={(el) => (reveal.current[0] = el)}>
           <h2 className="text-4xl md:text-6xl font-bold mb-8 text-center">Let's Connect</h2>
           <p className="text-muted-foreground text-center text-lg mb-16 max-w-2xl mx-auto">
-            Hiring a Unity developer, or have a game in mind? I take on remote contract
-            work and full-time roles with studios and publishers worldwide. Tell me about
-            the project and I'll get back to you.
+            Have a project in mind or want to collaborate? I'd love to hear from you.
           </p>
 
           <div className="glass rounded-2xl p-8 md:p-12 backdrop-blur-xl">

@@ -24,12 +24,7 @@ export const Projects = () => {
   return (
     <section id="projects" className="min-h-screen py-32 px-6 relative">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold mb-6 text-center">Featured Unity Projects</h2>
-        <p className="text-muted-foreground text-center text-lg mb-20 max-w-3xl mx-auto leading-relaxed">
-          Commercial Unity titles built and shipped for studios and publishers — idle
-          simulation, tower defence, survival RPG and physics-based driving, released on
-          the Google Play Store, the iOS App Store and Steam.
-        </p>
+        <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Featured Projects</h2>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
