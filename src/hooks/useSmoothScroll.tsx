@@ -12,14 +12,19 @@ export const useSmoothScroll = () => {
       touchMultiplier: 2,
     });
 
+    // Track the frame id so cleanup can stop the loop. Without this the rAF
+    // chain outlives the effect and keeps calling raf() on a destroyed Lenis.
+    let frameId = 0;
+
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frameId = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    frameId = requestAnimationFrame(raf);
 
     return () => {
+      cancelAnimationFrame(frameId);
       lenis.destroy();
     };
   }, []);
