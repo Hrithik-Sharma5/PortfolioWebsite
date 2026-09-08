@@ -1,4 +1,5 @@
-import { useLayoutEffect, useRef } from 'react';
+import { useRef } from 'react';
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 
 /** Fraction of the viewport height an element must cross before it reveals. */
 const REVEAL_THRESHOLD = 0.9;
@@ -24,12 +25,16 @@ const REVEAL_THRESHOLD = 0.9;
 export function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const refs = useRef<(T | null)[]>([]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const all = refs.current.filter((el): el is T => el !== null);
     if (all.length === 0) return;
 
     let pending = all;
-    all.forEach((el) => el.classList.add('reveal'));
+
+    // The markup is prerendered, so this content is already on screen. Hide it
+    // with transitions suppressed so it snaps rather than fading out, then
+    // restore them before anything scrolls into view.
+    all.forEach((el) => el.classList.add('reveal-instant', 'reveal'));
 
     const check = () => {
       if (pending.length === 0) return;
@@ -59,12 +64,16 @@ export function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
     // Synchronous first pass - whatever is already on screen shows immediately.
     check();
 
+    // Flush the hidden state, then re-enable transitions for scroll reveals.
+    void document.body.offsetHeight;
+    all.forEach((el) => el.classList.remove('reveal-instant'));
+
     window.addEventListener('scroll', check, { passive: true });
     window.addEventListener('resize', check, { passive: true });
 
     return () => {
       detach();
-      all.forEach((el) => el.classList.remove('reveal', 'reveal-visible'));
+      all.forEach((el) => el.classList.remove('reveal-instant', 'reveal', 'reveal-visible'));
     };
   }, []);
 

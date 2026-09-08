@@ -159,6 +159,13 @@ All colors MUST be HSL.
   will-change: auto;
 }
 
+/* Applied for a single frame while the hidden state is first set. The page is
+   prerendered, so this content has already been painted visible - without
+   suppressing the transition it would visibly fade out before fading back in. */
+.reveal-instant {
+  transition: none !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal-visible {

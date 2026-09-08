@@ -2,36 +2,20 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { ExternalLink, Smartphone, Apple, Globe } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { selfPublishedGames, platformMeta, type PlatformName } from '@/data/games';
 
-type Platform = {
-    name: 'playstore' | 'appstore' | 'steam' | 'website';
-    url: string;
+const platformIcons: Record<PlatformName, typeof Smartphone> = {
+  playstore: Smartphone,
+  appstore: Apple,
+  steam: ExternalLink,
+  website: Globe,
 };
 
-const selfPublishedGames = [
-    {
-        title: 'Crush Point',
-        description: 'A satisfying 2D ball crushing game with multiple levels and free play modes. Crush balls between the bars and avoid the obstacles.',
-        platforms: [
-            { name: 'steam' as const, url: 'https://store.steampowered.com/app/3977490/Crush_Point/' },
-        ],
-        image: './PortfolioVisualIcons/CrushPoint.webp',
-    },
-    {
-        title: 'Chill Guy Survival (To be released)',
-        description: 'A 2D survival game where you use a variety of weapons to fight enemy waves. Each weapon generates at different speeds, requiring strategic planning across multiple maps.',
-        platforms: [
-            { name: 'website' as const, url: 'https://www.crazygames.com/preview/ea00d315-5bb0-4ee6-80ee-b13c96f8d1aa?sdk_debug=true&gameBuildId=c00a68c8-7cfc-4a16-ae14-15a6a1366cb4&qaTool=true&disableSubmitQA=true&role=developer' }
-        ],
-        image: './PortfolioVisualIcons/ChillGuy.webp',
-    },
-];
-
-const platformConfig = {
-    playstore: { label: 'Play Store', icon: Smartphone, color: 'hover:bg-green-600' },
-    appstore: { label: 'App Store', icon: Apple, color: 'hover:bg-blue-600' },
-    steam: { label: 'Steam', icon: ExternalLink, color: 'hover:bg-indigo-600' },
-    website: { label: 'Website', icon: Globe, color: 'hover:bg-purple-600' },
+const platformStyles: Record<PlatformName, string> = {
+  playstore: 'hover:bg-green-600',
+  appstore: 'hover:bg-blue-600',
+  steam: 'hover:bg-indigo-600',
+  website: 'hover:bg-purple-600',
 };
 
 export const SelfPublished = () => {
@@ -40,7 +24,12 @@ export const SelfPublished = () => {
     return (
         <section id="self-published" className="min-h-screen py-20 px-6 relative">
             <div className="max-w-7xl mx-auto">
-                <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Self Published Games</h2>
+                <h2 className="text-4xl md:text-6xl font-bold mb-6 text-center">Self Published Games</h2>
+                <p className="text-muted-foreground text-center text-lg mb-20 max-w-3xl mx-auto leading-relaxed">
+                    Games I design, build and publish independently — taking each one from
+                    prototype through store release, including Steam publishing and
+                    web-playable builds.
+                </p>
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {selfPublishedGames.map((game, index) => (
@@ -54,7 +43,7 @@ export const SelfPublished = () => {
                                 <div className="relative overflow-hidden aspect-video">
                                     <img
                                         src={game.image}
-                                        alt={game.title}
+                                        alt={`${game.title} — ${game.genre} game developed and self-published by Hrithik Sharma`}
                                         loading="lazy"
                                         decoding="async"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -66,21 +55,26 @@ export const SelfPublished = () => {
                                     <p className="text-muted-foreground leading-relaxed">{game.description}</p>
                                     <div className="flex flex-wrap gap-2">
                                         {game.platforms.map((platform, i) => {
-                                            const config = platformConfig[platform.name];
-                                            const Icon = config.icon;
+                                            const Icon = platformIcons[platform.name];
+                                            const label = platformMeta[platform.name].label;
                                             return (
                                                 <Button
                                                     key={i}
+                                                    asChild
                                                     size="sm"
                                                     variant="outline"
-                                                    className={`glass border-border transition-all duration-300 ${config.color}`}
-                                                    onClick={(e) => {
-                                                        e.stopPropagation();
-                                                        window.open(platform.url, '_blank', 'noopener,noreferrer');
-                                                    }}
+                                                    className={`glass border-border transition-all duration-300 ${platformStyles[platform.name]}`}
                                                 >
-                                                    <Icon className="w-4 h-4 mr-2" />
-                                                    {config.label}
+                                                    <a
+                                                        href={platform.url}
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        onClick={(e) => e.stopPropagation()}
+                                                        aria-label={`${game.title} on ${label}`}
+                                                    >
+                                                        <Icon className="w-4 h-4 mr-2" />
+                                                        {label}
+                                                    </a>
                                                 </Button>
                                             );
                                         })}

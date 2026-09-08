@@ -55,8 +55,9 @@ export const Hero = () => {
         </p>
 
         <p className="animate-hero-rise text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12 font-light leading-relaxed">
-          Transforming creative visions into interactive realities with cutting-edge
-          game development and innovative design solutions.
+          Seven years shipping Unity games across 2D, 3D, multiplayer, AR and VR —
+          on Android, iOS, Web and Steam. Available for remote contract and
+          full-time work with studios and publishers in the US, UK, Canada and Europe.
         </p>
 
         <div className="animate-hero-rise flex gap-4 justify-center">

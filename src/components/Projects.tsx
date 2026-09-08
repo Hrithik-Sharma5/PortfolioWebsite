@@ -2,69 +2,20 @@ import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { ExternalLink, Smartphone, Apple, Globe } from 'lucide-react';
 import { useScrollReveal } from '@/hooks/useScrollReveal';
+import { featuredProjects as projects, platformMeta, type PlatformName } from '@/data/games';
 
-type Platform = {
-  name: 'playstore' | 'appstore' | 'steam' | 'website';
-  url: string;
+const platformIcons: Record<PlatformName, typeof Smartphone> = {
+  playstore: Smartphone,
+  appstore: Apple,
+  steam: ExternalLink,
+  website: Globe,
 };
 
-const projects = [
-  {
-    title: 'Spa Empire',
-    description: 'An idle spa management game where you welcome customers, complete tasks, unlock new rooms, and expand your spa into an empire.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.myperfectspa&hl=en' },
-    ],
-    image: './PortfolioVisualIcons/SpaEmpire.webp',
-  },
-  {
-    title: 'Gear Defense : Survival',
-    description: 'Gear Defence is a zombie survival RPG. Build, merge, and upgrade your gears to fight endless waves of zombies in a bullet hell defence arena.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.geardefence' },
-    ],
-    image: './PortfolioVisualIcons/GearSurvival.webp',
-  },
-  {
-    title: 'Car Parking Driving School',
-    description: 'A realistic open world car simulation game featuring diverse missions, deep vehicle customization, and a physics based driving system.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.racinggames_city.car.racing_Free' },
-      { name: 'appstore' as const, url: 'https://apps.apple.com/us/app/car-parking-driving-school/id1193550697' },
-    ],
-    image: './PortfolioVisualIcons/CPDS.webp',
-  },
-  {
-    title: 'Mineventure',
-    description: 'A 2D idle mining game where you collect resources, upgrade miners and weapons, and progress through levels by clearing the rocks and mines from the area.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.mineventure' },
-    ],
-    image: './PortfolioVisualIcons/MineVenture.webp',
-  },
-  {
-    title: 'Gas Station Tycoon',
-    description: 'An idle gas station tycoon game where you manage a gas station, fill customer’s tanks, upgrade pumps, hire workers, and expand your station.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.gasstation3d&hl=en' },
-    ],
-    image: './PortfolioVisualIcons/GasStationTycooon.webp',
-  },
-  {
-    title: 'Tower Strike',
-    description: 'An idle gas station tycoon game where you manage a gas station, fill customer’s tanks, upgrade pumps, hire workers, and expand your station.',
-    platforms: [
-      { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.goosebump.towerstrike' },
-    ],
-    image: './PortfolioVisualIcons/TowerStrike.webp',
-  },
-];
-
-const platformConfig = {
-  playstore: { label: 'Play Store', icon: Smartphone, color: 'hover:bg-green-600' },
-  appstore: { label: 'App Store', icon: Apple, color: 'hover:bg-blue-600' },
-  steam: { label: 'Steam', icon: ExternalLink, color: 'hover:bg-indigo-600' },
-  website: { label: 'Website', icon: Globe, color: 'hover:bg-purple-600' },
+const platformStyles: Record<PlatformName, string> = {
+  playstore: 'hover:bg-green-600',
+  appstore: 'hover:bg-blue-600',
+  steam: 'hover:bg-indigo-600',
+  website: 'hover:bg-purple-600',
 };
 
 export const Projects = () => {
@@ -73,7 +24,12 @@ export const Projects = () => {
   return (
     <section id="projects" className="min-h-screen py-32 px-6 relative">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Featured Projects</h2>
+        <h2 className="text-4xl md:text-6xl font-bold mb-6 text-center">Featured Unity Projects</h2>
+        <p className="text-muted-foreground text-center text-lg mb-20 max-w-3xl mx-auto leading-relaxed">
+          Commercial Unity titles built and shipped for studios and publishers — idle
+          simulation, tower defence, survival RPG and physics-based driving, released on
+          the Google Play Store, the iOS App Store and Steam.
+        </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
@@ -87,7 +43,7 @@ export const Projects = () => {
                 <div className="relative overflow-hidden aspect-video">
                   <img
                     src={project.image}
-                    alt={project.title}
+                    alt={`${project.title} — ${project.genre} game developed in Unity by Hrithik Sharma`}
                     loading="lazy"
                     decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
@@ -99,21 +55,29 @@ export const Projects = () => {
                   <p className="text-muted-foreground leading-relaxed">{project.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.platforms.map((platform, i) => {
-                      const config = platformConfig[platform.name];
-                      const Icon = config.icon;
+                      const Icon = platformIcons[platform.name];
+                      const label = platformMeta[platform.name].label;
                       return (
                         <Button
                           key={i}
+                          asChild
                           size="sm"
                           variant="outline"
-                          className={`glass border-border transition-all duration-300 ${config.color}`}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            window.open(platform.url, '_blank', 'noopener,noreferrer');
-                          }}
+                          className={`glass border-border transition-all duration-300 ${platformStyles[platform.name]}`}
                         >
-                          <Icon className="w-4 h-4 mr-2" />
-                          {config.label}
+                          {/* A real anchor, not a button with window.open: store
+                              links are the page's main outbound signal and a
+                              crawler cannot see a click handler. */}
+                          <a
+                            href={platform.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={(e) => e.stopPropagation()}
+                            aria-label={`${project.title} on ${label}`}
+                          >
+                            <Icon className="w-4 h-4 mr-2" />
+                            {label}
+                          </a>
                         </Button>
                       );
                     })}

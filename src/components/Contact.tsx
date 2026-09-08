@@ -49,7 +49,9 @@ export const Contact = () => {
         <div ref={(el) => (reveal.current[0] = el)}>
           <h2 className="text-4xl md:text-6xl font-bold mb-8 text-center">Let's Connect</h2>
           <p className="text-muted-foreground text-center text-lg mb-16 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you.
+            Hiring a Unity developer, or have a game in mind? I take on remote contract
+            work and full-time roles with studios and publishers worldwide. Tell me about
+            the project and I'll get back to you.
           </p>
 
           <div className="glass rounded-2xl p-8 md:p-12 backdrop-blur-xl">
@@ -86,7 +88,7 @@ export const Contact = () => {
                 <label htmlFor="contact-subject" className="text-sm text-muted-foreground">Subject</label>
                 <Input
                   id="contact-subject"
-                    name="subject"
+                  name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   className="bg-secondary border-border"
@@ -99,7 +101,7 @@ export const Contact = () => {
                 <label htmlFor="contact-message" className="text-sm text-muted-foreground">Message</label>
                 <Textarea
                   id="contact-message"
-                    name="message"
+                  name="message"
                   value={formData.message}
                   onChange={handleChange}
                   className="bg-secondary border-border min-h-[150px] resize-none"
@@ -121,29 +123,35 @@ export const Contact = () => {
             <div className="mt-12 pt-8 border-t border-border">
               <p className="text-center text-muted-foreground mb-6">Or connect with me on</p>
               <div className="flex justify-center gap-4">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://github.com/Hrithik-Sharma5', '_blank', 'noopener,noreferrer')}
-                >
-                  <Github className="w-5 h-5" />
+                <Button asChild variant="outline" size="icon" className="glass hover:bg-secondary">
+                  <a
+                    href="https://github.com/Hrithik-Sharma5"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    aria-label="Hrithik Sharma on GitHub"
+                  >
+                    <Github className="w-5 h-5" />
+                  </a>
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://www.linkedin.com/in/hrithik-s-a86851107/', '_blank', 'noopener,noreferrer')}
-                >
-                  <Linkedin className="w-5 h-5" />
+                <Button asChild variant="outline" size="icon" className="glass hover:bg-secondary">
+                  <a
+                    href="https://www.linkedin.com/in/hrithik-s-a86851107/"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    aria-label="Hrithik Sharma on LinkedIn"
+                  >
+                    <Linkedin className="w-5 h-5" />
+                  </a>
                 </Button>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://x.com/NoDotBalls', '_blank', 'noopener,noreferrer')}
-                >
-                  <Twitter className="w-5 h-5" />
+                <Button asChild variant="outline" size="icon" className="glass hover:bg-secondary">
+                  <a
+                    href="https://x.com/NoDotBalls"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    aria-label="Hrithik Sharma on X"
+                  >
+                    <Twitter className="w-5 h-5" />
+                  </a>
                 </Button>
               </div>
             </div>

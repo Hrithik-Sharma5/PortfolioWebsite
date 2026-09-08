@@ -44,7 +44,7 @@ export const About = () => {
             {/* Text Content */}
             <div className="space-y-6 text-muted-foreground leading-relaxed">
               <p className="text-lg md:text-xl">
-                Hi, I'm <span className="text-foreground font-semibold">Hrithik Sharma</span>, a Unity game developer with 7+ years of experience building
+                Hi, I'm <span className="text-foreground font-semibold">Hrithik Sharma</span>, a Unity and C# game developer with 7+ years of experience building
                 games across 2D, 3D, Multiplayer, AR, VR, and XR.
               </p>
 
@@ -56,6 +56,13 @@ export const About = () => {
               <p className="text-lg md:text-xl">
                 From core architecture to gameplay design, I handle end-to-end development with attention to detail.
                 I'm passionate about creating fun, high-quality games and constantly improving my craft.
+              </p>
+
+              <p className="text-lg md:text-xl">
+                I work remotely with studios, publishers and independent teams across the
+                United States, United Kingdom, Canada and Europe — comfortable with
+                overlapping hours, async handoffs, and both long-running contracts and
+                full-time roles.
               </p>
             </div>
           </div>
