@@ -1,11 +1,7 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { ExternalLink, Smartphone, Apple, Globe } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 type Platform = {
   name: 'playstore' | 'appstore' | 'steam' | 'website';
@@ -19,7 +15,7 @@ const projects = [
     platforms: [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.myperfectspa&hl=en' },
     ],
-    image: './PortfolioVisualIcons/SpaEmpire.png',
+    image: './PortfolioVisualIcons/SpaEmpire.webp',
   },
   {
     title: 'Gear Defense : Survival',
@@ -27,7 +23,7 @@ const projects = [
     platforms: [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.geardefence' },
     ],
-    image: './PortfolioVisualIcons/GearSurvival.png',
+    image: './PortfolioVisualIcons/GearSurvival.webp',
   },
   {
     title: 'Car Parking Driving School',
@@ -36,7 +32,7 @@ const projects = [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.racinggames_city.car.racing_Free' },
       { name: 'appstore' as const, url: 'https://apps.apple.com/us/app/car-parking-driving-school/id1193550697' },
     ],
-    image: './PortfolioVisualIcons/CPDS.png',
+    image: './PortfolioVisualIcons/CPDS.webp',
   },
   {
     title: 'Mineventure',
@@ -44,7 +40,7 @@ const projects = [
     platforms: [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.mineventure' },
     ],
-    image: './PortfolioVisualIcons/MineVenture.png',
+    image: './PortfolioVisualIcons/MineVenture.webp',
   },
   {
     title: 'Gas Station Tycoon',
@@ -52,7 +48,7 @@ const projects = [
     platforms: [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.CTT.gasstation3d&hl=en' },
     ],
-    image: './PortfolioVisualIcons/GasStationTycooon.png',
+    image: './PortfolioVisualIcons/GasStationTycooon.webp',
   },
   {
     title: 'Tower Strike',
@@ -60,7 +56,7 @@ const projects = [
     platforms: [
       { name: 'playstore' as const, url: 'https://play.google.com/store/apps/details?id=com.goosebump.towerstrike' },
     ],
-    image: './PortfolioVisualIcons/TowerStrike.png',
+    image: './PortfolioVisualIcons/TowerStrike.webp',
   },
 ];
 
@@ -72,34 +68,10 @@ const platformConfig = {
 };
 
 export const Projects = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    cardsRef.current.forEach((card, index) => {
-      if (card) {
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 100 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 1,
-            delay: index * 0.1,
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-              end: 'top 30%',
-              scrub: 1,
-            },
-          }
-        );
-      }
-    });
-  }, []);
+  const reveal = useScrollReveal();
 
   return (
-    <section id="projects" ref={sectionRef} className="min-h-screen py-32 px-6 relative">
+    <section id="projects" className="min-h-screen py-32 px-6 relative">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Featured Projects</h2>
 
@@ -107,14 +79,17 @@ export const Projects = () => {
           {projects.map((project, index) => (
             <div
               key={index}
-              ref={(el) => (cardsRef.current[index] = el)}
+              ref={(el) => (reveal.current[index] = el)}
               className="group"
+              style={{ transitionDelay: `${(index % 3) * 100}ms` }}
             >
               <Card className="glass overflow-hidden border-border hover:border-accent transition-all duration-500 h-full cursor-pointer">
                 <div className="relative overflow-hidden aspect-video">
                   <img
                     src={project.image}
                     alt={project.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-60" />
@@ -134,7 +109,7 @@ export const Projects = () => {
                           className={`glass border-border transition-all duration-300 ${config.color}`}
                           onClick={(e) => {
                             e.stopPropagation();
-                            window.open(platform.url, '_blank');
+                            window.open(platform.url, '_blank', 'noopener,noreferrer');
                           }}
                         >
                           <Icon className="w-4 h-4 mr-2" />

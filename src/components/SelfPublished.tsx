@@ -1,11 +1,7 @@
-import { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
 import { ExternalLink, Smartphone, Apple, Globe } from 'lucide-react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 type Platform = {
     name: 'playstore' | 'appstore' | 'steam' | 'website';
@@ -19,7 +15,7 @@ const selfPublishedGames = [
         platforms: [
             { name: 'steam' as const, url: 'https://store.steampowered.com/app/3977490/Crush_Point/' },
         ],
-        image: './PortfolioVisualIcons/CrushPoint.jpg',
+        image: './PortfolioVisualIcons/CrushPoint.webp',
     },
     {
         title: 'Chill Guy Survival (To be released)',
@@ -27,7 +23,7 @@ const selfPublishedGames = [
         platforms: [
             { name: 'website' as const, url: 'https://www.crazygames.com/preview/ea00d315-5bb0-4ee6-80ee-b13c96f8d1aa?sdk_debug=true&gameBuildId=c00a68c8-7cfc-4a16-ae14-15a6a1366cb4&qaTool=true&disableSubmitQA=true&role=developer' }
         ],
-        image: './PortfolioVisualIcons/ChillGuy.jpg',
+        image: './PortfolioVisualIcons/ChillGuy.webp',
     },
 ];
 
@@ -39,34 +35,10 @@ const platformConfig = {
 };
 
 export const SelfPublished = () => {
-    const sectionRef = useRef<HTMLElement>(null);
-    const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
-
-    useEffect(() => {
-        cardsRef.current.forEach((card, index) => {
-            if (card) {
-                gsap.fromTo(
-                    card,
-                    { opacity: 0, y: 100 },
-                    {
-                        opacity: 1,
-                        y: 0,
-                        duration: 1,
-                        delay: index * 0.1,
-                        scrollTrigger: {
-                            trigger: card,
-                            start: 'top 85%',
-                            end: 'top 30%',
-                            scrub: 1,
-                        },
-                    }
-                );
-            }
-        });
-    }, []);
+    const reveal = useScrollReveal();
 
     return (
-        <section id="self-published" ref={sectionRef} className="min-h-screen py-20 px-6 relative">
+        <section id="self-published" className="min-h-screen py-20 px-6 relative">
             <div className="max-w-7xl mx-auto">
                 <h2 className="text-4xl md:text-6xl font-bold mb-20 text-center">Self Published Games</h2>
 
@@ -74,14 +46,17 @@ export const SelfPublished = () => {
                     {selfPublishedGames.map((game, index) => (
                         <div
                             key={index}
-                            ref={(el) => (cardsRef.current[index] = el)}
+                            ref={(el) => (reveal.current[index] = el)}
                             className="group"
+                            style={{ transitionDelay: `${(index % 3) * 100}ms` }}
                         >
                             <Card className="glass overflow-hidden border-border hover:border-accent transition-all duration-500 h-full cursor-pointer">
                                 <div className="relative overflow-hidden aspect-video">
                                     <img
                                         src={game.image}
                                         alt={game.title}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent opacity-60" />
@@ -101,7 +76,7 @@ export const SelfPublished = () => {
                                                     className={`glass border-border transition-all duration-300 ${config.color}`}
                                                     onClick={(e) => {
                                                         e.stopPropagation();
-                                                        window.open(platform.url, '_blank');
+                                                        window.open(platform.url, '_blank', 'noopener,noreferrer');
                                                     }}
                                                 >
                                                     <Icon className="w-4 h-4 mr-2" />

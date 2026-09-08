@@ -1,16 +1,12 @@
 import { useState } from 'react';
-import { useSpring, animated } from '@react-spring/web';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Mail, Github, Linkedin, Twitter } from 'lucide-react';
+import { useScrollReveal } from '@/hooks/useScrollReveal';
 
 export const Contact = () => {
-  const fadeIn = useSpring({
-    from: { opacity: 0, transform: 'translateY(30px)' },
-    to: { opacity: 1, transform: 'translateY(0px)' },
-    config: { tension: 80, friction: 25 },
-  });
+  const reveal = useScrollReveal();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -50,7 +46,7 @@ export const Contact = () => {
       <div className="absolute inset-0 bg-gradient-to-t from-background via-secondary/20 to-background" />
 
       <div className="max-w-4xl mx-auto w-full relative z-10">
-        <animated.div style={fadeIn}>
+        <div ref={(el) => (reveal.current[0] = el)}>
           <h2 className="text-4xl md:text-6xl font-bold mb-8 text-center">Let's Connect</h2>
           <p className="text-muted-foreground text-center text-lg mb-16 max-w-2xl mx-auto">
             Have a project in mind or want to collaborate? I'd love to hear from you.
@@ -60,8 +56,9 @@ export const Contact = () => {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-sm text-muted-foreground">Name</label>
+                  <label htmlFor="contact-name" className="text-sm text-muted-foreground">Name</label>
                   <Input
+                    id="contact-name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
@@ -71,8 +68,9 @@ export const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm text-muted-foreground">Email</label>
+                  <label htmlFor="contact-email" className="text-sm text-muted-foreground">Email</label>
                   <Input
+                    id="contact-email"
                     name="email"
                     type="email"
                     value={formData.email}
@@ -85,9 +83,10 @@ export const Contact = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm text-muted-foreground">Subject</label>
+                <label htmlFor="contact-subject" className="text-sm text-muted-foreground">Subject</label>
                 <Input
-                  name="subject"
+                  id="contact-subject"
+                    name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   className="bg-secondary border-border"
@@ -97,9 +96,10 @@ export const Contact = () => {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm text-muted-foreground">Message</label>
+                <label htmlFor="contact-message" className="text-sm text-muted-foreground">Message</label>
                 <Textarea
-                  name="message"
+                  id="contact-message"
+                    name="message"
                   value={formData.message}
                   onChange={handleChange}
                   className="bg-secondary border-border min-h-[150px] resize-none"
@@ -125,7 +125,7 @@ export const Contact = () => {
                   variant="outline"
                   size="icon"
                   className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://github.com/Hrithik-Sharma5', '_blank')}
+                  onClick={() => window.open('https://github.com/Hrithik-Sharma5', '_blank', 'noopener,noreferrer')}
                 >
                   <Github className="w-5 h-5" />
                 </Button>
@@ -133,7 +133,7 @@ export const Contact = () => {
                   variant="outline"
                   size="icon"
                   className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://www.linkedin.com/in/hrithik-s-a86851107/', '_blank')}
+                  onClick={() => window.open('https://www.linkedin.com/in/hrithik-s-a86851107/', '_blank', 'noopener,noreferrer')}
                 >
                   <Linkedin className="w-5 h-5" />
                 </Button>
@@ -141,14 +141,14 @@ export const Contact = () => {
                   variant="outline"
                   size="icon"
                   className="glass hover:bg-secondary"
-                  onClick={() => window.open('https://x.com/NoDotBalls', '_blank')}
+                  onClick={() => window.open('https://x.com/NoDotBalls', '_blank', 'noopener,noreferrer')}
                 >
                   <Twitter className="w-5 h-5" />
                 </Button>
               </div>
             </div>
           </div>
-        </animated.div>
+        </div>
       </div>
     </section>
   );
